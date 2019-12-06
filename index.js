@@ -26,8 +26,32 @@ export const reduce = curry((f, acc, iter) => {
   return acc
 })
 
-const go = (...args) => reduce((a, f) => f(a), args)
+export const go = (...args) => reduce((a, f) => f(a), args)
 // 인자로 받은 값들을 다음 인자로 전달해 평가하여 값을 reduce 하는 함수
 
-const pipe = (f, ...fs) => (...as) => go(f(...as), ...fs)
+export const pipe = (f, ...fs) => (...as) => go(f(...as), ...fs)
 //축약된 함수를 리턴하는 함수 pipe함수에 값을 전달하면 go 함숭에 값이 전달~
+
+export const range = l => {
+  let i = -1
+  let res = []
+  while(++i < l){
+    res.push(i)
+  }
+  return res
+}
+
+export const L = {}
+L.range = function *(l){
+  let i = -1
+  while(++i < l) yield i
+}
+
+export const take = (l, iter) => {
+  let res = []
+  for(const a of iter){
+    res.push(a)
+    if(res.length === l) return res
+  }
+  return res
+}
